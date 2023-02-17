@@ -2,7 +2,7 @@
     export let type = "text";
 </script>
 
-<input {type}>
+<input class="text-2xl" {type}>
 
 <style>
 

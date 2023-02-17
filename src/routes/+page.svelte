@@ -4,12 +4,22 @@
     import { goto } from '$app/navigation';
     import Button from '../components/Button.svelte';
     import { gsap } from "gsap";
+    import { onMount } from 'svelte';
 
     let ip = "";
     let port = 0;
     let password = "";
     let loggedIn = false;
     let buttonAnimationElement;
+    
+    let ipBackingElement;
+    let ipBackingElementAnimation;
+    
+    let portBackingElement;
+    let portBackingElementAnimation;
+    
+    let passBackingElement;
+    let passBackingElementAnimation;
 
     connected.subscribe(val => {
         loggedIn = val;
@@ -18,22 +28,66 @@
     if (loggedIn) {
         goto("/panel");
     }
+
+    onMount(() => {
+        ipBackingElementAnimation = gsap.to(ipBackingElement, {
+            scale: 1.2,
+            yoyo: true,
+            paused: true,
+            repeat: -1,
+        });
+        portBackingElementAnimation = gsap.to(portBackingElement, {
+            scale: 1.2,
+            yoyo: true,
+            paused: true,
+            repeat: -1,
+        });
+        passBackingElementAnimation = gsap.to(passBackingElement, {
+            scale: 1.2,
+            yoyo: true,
+            paused: true,
+            repeat: -1,
+        });
+    });
 </script>
 
-<h1>Log in</h1>
 <container class="fixed top-[50%] left-[50%] -translate-y-[50%] -translate-x-[50%]">
     <form action="" on:submit|preventDefault>
         <div class="ip">
             <h2 class="header text-6xl font-black relative top-3 -z-10">IP</h2>
-            <input type="text" class="relative" bind:value={ip}>
+            <input on:mouseenter={() => {
+                ipBackingElementAnimation.restart();
+            }} on:mouseleave={() => {
+                ipBackingElementAnimation.pause();
+                gsap.to(ipBackingElement, {
+                    scale: 1,
+                });
+            }} class="relative p-4 rounded-lg hover:drop-shadow-xl hover:-translate-y-2 outline-none transition-all" type="text" bind:value={ip}>
+            <input disabled bind:this={ipBackingElement} class="absolute left-3 -z-10 py-4 px-1 rounded-lg bg-black opacity-10" type="text">
         </div>
         <div class="port">
             <h2 class="header text-6xl font-black relative top-3 -z-10">Port</h2>
-            <input type="number" bind:value={port}>
+            <input on:mouseenter={() => {
+                portBackingElementAnimation.restart();
+            }} on:mouseleave={() => {
+                portBackingElementAnimation.pause();
+                gsap.to(portBackingElement, {
+                    scale: 1,
+                });
+            }} class="relative p-4 rounded-lg hover:drop-shadow-xl hover:-translate-y-2 outline-none transition-all" type="number" bind:value={port}>
+            <input disabled bind:this={portBackingElement} class="absolute left-3 -z-10 py-4 px-1 rounded-lg bg-black opacity-10" type="text">
         </div>
         <div class="password">
             <h2 class="header text-6xl font-black relative top-3 -z-10">Password</h2>
-            <input type="password" bind:value={password}>
+            <input on:mouseenter={() => {
+                passBackingElementAnimation.restart();
+            }} on:mouseleave={() => {
+                passBackingElementAnimation.pause();
+                gsap.to(passBackingElement, {
+                    scale: 1,
+                });
+            }} class="p-4 rounded-lg hover:drop-shadow-xl hover:-translate-y-2 outline-none transition-all" type="password" bind:value={password}>
+            <input disabled bind:this={passBackingElement} class="absolute left-3 -z-10 py-4 px-1 rounded-lg bg-black opacity-10" type="text">
         </div>
         <div class="text-center mt-[5%]">
             <Button colorLevel=900 on:click={async () => {
