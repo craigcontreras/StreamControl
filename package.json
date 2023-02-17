@@ -24,6 +24,8 @@
 		"@capacitor/core": "^4.6.3",
 		"@capacitor/ios": "^4.6.3",
 		"@sveltejs/adapter-static": "^2.0.1",
+		"daisyui": "^2.50.1",
+		"gsap": "^3.11.4",
 		"obs-websocket-js": "^5.0.2"
 	}
 }

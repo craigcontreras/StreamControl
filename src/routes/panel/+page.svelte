@@ -1,5 +1,6 @@
 <script>
     import { goto } from "$app/navigation";
+    import Button from "../../components/Button.svelte";
     import { obs } from "../../obs.js";
     import { connected } from "../../stores";
 
@@ -18,11 +19,11 @@
     });
 </script>
 
-<button on:click={async () => {
+<Button on:click={async () => {
     await obs.disconnect();
     connected.update(val => false);
     goto("/");
-}}>Disconnect</button>
+}} text="Disconnect"/>
 <h1>Panel</h1>
 
 <style>
