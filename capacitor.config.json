@@ -1,0 +1,6 @@
+{
+  "appId": "app.radiowave.streamcontrol",
+  "appName": "StreamControl",
+  "webDir": "build",
+  "bundledWebRuntime": false
+}
